@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2>Sign up</h2>
+      <mat-error *ngIf="loginInvalid">
+        {{errMsg}}
+      </mat-error>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Username" formControlName="userName" required>
+        <mat-error>
+          Please provide a valid username
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Email" formControlName="email" required>
+        <mat-error>
+          Please provide a valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select type</mat-label>
+        <mat-select formControlName="selectedValue" name="data">
+          <mat-option *ngFor="let data of list" [value]="data._id">
+            {{data.role}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput type="password" placeholder="Password" formControlName="password" required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field class="full-width-input">
+        <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field *ngIf="form.controls['password'].valid">
+        <input matInput placeholder="Confirm your password" formControlName="confirmPassword">
+        <mat-error
+          *ngIf="form.controls['confirmPassword'].pristine || form.controls['confirmPassword'].errors?.MatchPassword">
+          Password does not match</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="city" formControlName="city" required>
+        <mat-error>
+          Please provide a valid city
+        </mat-error>
+      </mat-form-field>     
+      <button mat-raised-button color="primary">sign up</button>
+    </form>
+  </mat-card-content>
+</mat-card>

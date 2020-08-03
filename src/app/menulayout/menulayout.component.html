@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>Hospital Management</h1>
+      <span class="menu-spacer"></span>
+      <div>
+        <!-- <button mat-menu-item *ngIf="isAuthenticated" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button> -->
+        <a mat-button (click)="logOut()"> Logout </a>
+  
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav  #sidenav>
+      <mat-nav-list *ngIf="(role == 'Patient' || role == 'patient')">
+        <a mat-list-item [routerLink]="'/appointment'"> Appointment</a>
+  
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div style="height: 88vh;">
+  
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

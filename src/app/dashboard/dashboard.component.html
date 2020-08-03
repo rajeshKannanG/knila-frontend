@@ -1,0 +1,63 @@
+<div class="example-button-row"  aria-label="end" *ngIf ="(role == 'Patient' || role == 'patient')">
+  <button mat-raised-button (click)="moveTo()" style="margin:36px;color:rgb(31, 82, 236); font:bold;">New Appointmet</button>
+</div>
+<div class="mat-elevation-z8" *ngIf="!isErr">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <!-- <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="appointmentDate">
+      <th mat-header-cell *matHeaderCellDef> Appointment Date</th>
+      <td mat-cell *matCellDef="let element"> {{element.appointmentDate}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <!-- <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Appointment </th>
+      <td mat-cell *matCellDef="let element"> 
+        <button mat-raised-button style="margin:5px;" *ngIf="element.action =='Requested'  && (element.type == 'patient' || element.type == 'Patient')" matTooltip="Click to Accept" (click)="appointment(element,'Fixed')" color="primary">
+          Fixed
+        </button>
+         <button mat-raised-button *ngIf="element.action =='Requested' && (element.type == 'patient' || element.type == 'Patient')" matTooltip="Click to Reject" (click)="appointment(element, 'Rejected')"  color="warn">
+          Reject
+        </button>
+        <span *ngIf="(element.type == 'doctor' || element.type == 'Doctor')">{{element.action}}</span>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div  
+style = "text-align: center;margin: auto;padding: 141px; font: bold;"
+*ngIf="isErr">
+    {{errMsg}}
+</div>
